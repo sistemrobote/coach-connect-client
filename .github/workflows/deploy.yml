@@ -23,7 +23,8 @@ jobs:
 
       - name: Inject .env.test from GitHub Secrets
         run: |
-          echo "VITE_API_BASE_URL=${{ secrets.TEST_API_BASE_URL }}" >> .env.test
+          echo "VITE_STRAVA_CLIENT_ID=${{ secrets.TEST_CC_CLIENT_ID }}" 
+          echo "VITE_API_BASE_URL=${{ secrets.TEST_API_BASE_URL }}"
 
       - name: Build Vite app in test mode
         run: npm run build -- --mode test
