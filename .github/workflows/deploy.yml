@@ -23,7 +23,7 @@ jobs:
 
       - name: Inject .env.test from GitHub Secrets
         run: |
-          echo "VITE_STRAVA_CLIENT_ID=${{ secrets.TEST_CC_CLIENT_ID }}" 
+          echo "VITE_STRAVA_CLIENT_ID=158384" 
           echo "VITE_API_BASE_URL=${{ secrets.TEST_API_BASE_URL }}"
 
       - name: Build Vite app in test mode
