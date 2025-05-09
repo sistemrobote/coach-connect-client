@@ -2,19 +2,19 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const clientID = import.meta.env.VITE_STRAVA_CLIENT_ID;
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 function App() {
   const [activities, setActivities] = useState([]);
   const [userId, setuserId] = useState('');
 
   const login = async () => {
-    window.location.href = `https://www.strava.com/oauth/authorize?client_id=${clientID}&response_type=code&redirect_uri=http://localhost:5050/auth/exchange_token&approval_prompt=force&scope=activity:read_all`;
+    window.location.href = `https://www.strava.com/oauth/authorize?client_id=${clientID}&response_type=code&redirect_uri=${apiBaseUrl}/auth/exchange_token&approval_prompt=force&scope=activity:read_all`;
   };
 
   const fetchLastActivities = async (userId) => {
     try {
-      const res = await axios.get(`http://localhost:5050/activities?user_id=${userId}`);
-      // const res = await axios.get(`http://localhost:5050/lastactivities?user_id=${userId}`);
+      const res = await axios.get(`${apiBaseUrl}/activities?user_id=${userId}`);
       setActivities(res.data);
     } catch (err) {
       console.error(err);
