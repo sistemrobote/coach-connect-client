@@ -9,7 +9,7 @@ function App() {
   const [userId, setuserId] = useState('');
 
   const login = async () => {
-    window.location.href = `https://www.strava.com/oauth/authorize?client_id=${clientID}&response_type=code&redirect_uri=${apiBaseUrl}/auth/exchange_token&approval_prompt=force&scope=activity:read_all`;
+    window.location.href = `https://www.strava.com/oauth/authorize?client_id=${clientID}&response_type=code&redirect_uri=${apiBaseUrl}/local/auth/exchange_token&approval_prompt=force&scope=activity:read_all`;
   };
 
   const fetchLastActivities = async (userId) => {
