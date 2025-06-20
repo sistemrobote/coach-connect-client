@@ -7,9 +7,19 @@ export const Login = () => {
   };
 
   return (
-    <>
-      <h1>Strava Connect</h1>
-      <button onClick={login}>Connect to Strava</button>
-    </>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-orange-50">
+      <div className="bg-white p-8 rounded-2xl shadow-lg flex flex-col items-center w-full max-w-md">
+        <img src="/strava-logo.svg" alt="Strava" className="h-12 mb-6" />
+        <h2 className="text-3xl font-extrabold text-strava-orange mb-6 tracking-tight">
+          Connect Strava
+        </h2>
+        <button
+          onClick={login}
+          className="w-full py-3 px-6 bg-orange-500 hover:bg-orange-600 text-white font-semibold text-lg rounded-xl transition-all shadow-md"
+        >
+          Connect to Strava
+        </button>
+      </div>
+    </div>
   );
 };
