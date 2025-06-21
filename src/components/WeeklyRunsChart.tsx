@@ -37,7 +37,7 @@ const WeeklyRunsChart = ({ weekOffset }: { weekOffset: number }) => {
           <Legend />
           <Bar
             dataKey="totalMiles"
-            fill="#FC4C02"
+            fill="var(--color-primary)"
             radius={[6, 6, 0, 0]}
             name="Miles"
           >
@@ -45,15 +45,28 @@ const WeeklyRunsChart = ({ weekOffset }: { weekOffset: number }) => {
               dataKey="totalMiles"
               position="top"
               formatter={(value: number) => value.toFixed(1)} // Format as "12.3"
-              style={{ fill: "#FC4C02", fontWeight: "bold", fontSize: 12 }}
+              style={{
+                fill: "var(--color-primary)",
+                fontWeight: "bold",
+                fontSize: 12,
+              }}
             />
           </Bar>
-          <Bar dataKey="pace" fill="#b3b1b1" radius={[6, 6, 0, 0]} name="Pace">
+          <Bar
+            dataKey="pace"
+            fill="var(--color-light-gray)"
+            radius={[6, 6, 0, 0]}
+            name="Pace"
+          >
             <LabelList
               dataKey="pace"
               position="top"
               formatter={(value: number) => value.toFixed(1)} // Format as "12.3"
-              style={{ fill: "#b3b1b1", fontWeight: "bold", fontSize: 12 }}
+              style={{
+                fill: "var(--color-light-gray)",
+                fontWeight: "bold",
+                fontSize: 12,
+              }}
             />
           </Bar>
         </BarChart>

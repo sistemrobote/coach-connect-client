@@ -5,10 +5,18 @@ import { ActivitiesList } from "./components/ActivitiesList";
 import { useUserId } from "./hooks/useUserId";
 import { TrainingLog } from "./components/TrainingLog";
 import WeeklyRunsChart from "./components/WeeklyRunsChart";
+import { useActivities } from "./hooks/useActivities";
+import { useWeeklyRunsChartData } from "./hooks/useWeeklyRunsChartData";
+import { ScaleLoader } from "react-spinners";
 
 export const App = () => {
   const [weekOffset, setWeekOffset] = useState(0);
   const userId = useUserId();
+  const { isLoading: isLoadingChart } = useWeeklyRunsChartData(
+    userId,
+    weekOffset,
+  );
+  const { isLoading: isLoadingActivities } = useActivities(userId, weekOffset);
 
   if (!userId) return <Login />;
 
@@ -21,10 +29,26 @@ export const App = () => {
       p-4
     "
       >
-        <WeeklyCarousel weekOffset={weekOffset} setWeekOffset={setWeekOffset} />
-        <WeeklyRunsChart weekOffset={weekOffset} />
-        <ActivitiesList userId={userId} weekOffset={weekOffset} />
-        <TrainingLog />
+        {isLoadingChart || isLoadingActivities ? (
+          <div className="flex justify-center">
+            <ScaleLoader
+              color="var(--color-primary)"
+              loading={true}
+              height={50}
+              aria-label="Loading Spinner"
+            />
+          </div>
+        ) : (
+          <>
+            <WeeklyCarousel
+              weekOffset={weekOffset}
+              setWeekOffset={setWeekOffset}
+            />
+            <WeeklyRunsChart weekOffset={weekOffset} />
+            <ActivitiesList userId={userId} weekOffset={weekOffset} />
+            <TrainingLog />
+          </>
+        )}
       </div>
     </div>
   );

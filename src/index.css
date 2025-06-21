@@ -8,4 +8,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --color-primary: theme('colors.orange.600'); /* Only works if using PostCSS with Tailwind, see below */
+  --color-light-gray: theme('colors.gray.400'); /* Only works if using PostCSS with Tailwind, see below */
 }
