@@ -8,6 +8,7 @@ export type Activity = {
   name: string;
   start_date_local: string;
   distance: number;
+  average_speed: string;
   moving_time: number;
 };
 

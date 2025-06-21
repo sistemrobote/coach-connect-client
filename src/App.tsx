@@ -4,6 +4,7 @@ import { WeeklyCarousel } from "./components/WeeklyCarousel";
 import { ActivitiesList } from "./components/ActivitiesList";
 import { useUserId } from "./hooks/useUserId";
 import { TrainingLog } from "./components/TrainingLog";
+import WeeklyRunsChart from "./components/WeeklyRunsChart";
 
 export const App = () => {
   const [weekOffset, setWeekOffset] = useState(0);
@@ -21,6 +22,7 @@ export const App = () => {
     "
       >
         <WeeklyCarousel weekOffset={weekOffset} setWeekOffset={setWeekOffset} />
+        <WeeklyRunsChart />
         <ActivitiesList userId={userId} weekOffset={weekOffset} />
         <TrainingLog />
       </div>

@@ -1,6 +1,7 @@
 import React from "react";
-import { format, startOfWeek, endOfWeek, addWeeks, isThisWeek } from "date-fns";
+import { format, isThisWeek } from "date-fns";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { getRange } from "../utils/getRange";
 
 type Props = {
   weekOffset: number;
@@ -11,13 +12,6 @@ export const WeeklyCarousel: React.FC<Props> = ({
   weekOffset,
   setWeekOffset,
 }) => {
-  const getRange = (offset: number) => {
-    const now = new Date();
-    const start = startOfWeek(addWeeks(now, offset), { weekStartsOn: 1 });
-    const end = endOfWeek(addWeeks(now, offset), { weekStartsOn: 1 });
-    return { start, end };
-  };
-
   const { start, end } = getRange(weekOffset);
 
   // Display text: "Current Week" or dates
