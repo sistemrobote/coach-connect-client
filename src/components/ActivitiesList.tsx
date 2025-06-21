@@ -21,10 +21,11 @@ export const ActivitiesList: React.FC<Props> = ({ userId, weekOffset }) => {
     error,
   } = useActivities(userId, weekOffset);
   const formatPace: FormatPace = (seconds, meters) => {
-    const pace = seconds / (meters / 1000); // sec per km
+    const miles = meters / 1609.34;
+    const pace = seconds / miles; // sec per mile
     const mins = Math.floor(pace / 60);
     const secs = Math.round(pace % 60);
-    return `${mins}:${secs < 10 ? "0" : ""}${secs} /km`;
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}/mi`;
   };
 
   const formatTime: FormatTime = (seconds) => {
@@ -61,7 +62,7 @@ export const ActivitiesList: React.FC<Props> = ({ userId, weekOffset }) => {
                 )}
               </span>
               <span className="font-bold text-xl text-orange-600 ml-3">
-                {(activity.distance / 1609.34).toFixed(1)} mi
+                {(activity.distance / 1609.34).toFixed(1)}mi
               </span>
             </div>
             <div className="flex flex-row space-x-6 mt-1">

@@ -32,17 +32,17 @@ export const WeeklyCarousel: React.FC<Props> = ({
   return (
     <div className="flex items-center px-12 py-3 mb-4 w-full">
       <button
-        className="text-2xl text-gray-400 hover:text-orange-500 focus:outline-none"
+        className="text-2xl text-gray-400 hover:text-orange-500"
         onClick={() => setWeekOffset((w) => w - 1)}
         aria-label="Previous week"
       >
         <FaChevronLeft size={28} />
       </button>
       <div className="flex-1 flex flex-col items-center">
-        <span className="text-base mt-1">{getLabel()}</span>
+        <h1 className="mt-1 text-xl font-medium">{getLabel()}</h1>
       </div>
       <button
-        className="text-2xl text-gray-400 hover:text-orange-500 focus:outline-none"
+        className="text-2xl text-gray-400 hover:text-orange-500"
         onClick={() => setWeekOffset((w) => (w < 0 ? w + 1 : 0))}
         aria-label="Next week"
         disabled={weekOffset >= 0}

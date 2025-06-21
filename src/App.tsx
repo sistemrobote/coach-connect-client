@@ -1,21 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Login } from "./components/Login";
 import { WeeklyCarousel } from "./components/WeeklyCarousel";
 import { ActivitiesList } from "./components/ActivitiesList";
+import { useUserId } from "./hooks/useUserId";
+import { TrainingLog } from "./components/TrainingLog";
 
 export const App = () => {
-  const [userId, setuserId] = useState("");
   const [weekOffset, setWeekOffset] = useState(0);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const user_id = params.get("user_id");
-    if (user_id) {
-      localStorage.setItem("strava_user_id", user_id);
-      setuserId(user_id);
-    }
-    // // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const userId = useUserId();
 
   if (!userId) return <Login />;
 
@@ -30,6 +22,7 @@ export const App = () => {
       >
         <WeeklyCarousel weekOffset={weekOffset} setWeekOffset={setWeekOffset} />
         <ActivitiesList userId={userId} weekOffset={weekOffset} />
+        <TrainingLog />
       </div>
     </div>
   );
