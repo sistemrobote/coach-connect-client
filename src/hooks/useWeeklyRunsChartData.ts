@@ -36,7 +36,7 @@ export function useWeeklyRunsChartData(
           totalMiles: parseFloat(totalMiles.toFixed(1)),
           pace: pace,
           weekLabel: `${format(start, "MMM dd")}–${format(end, "dd")}`,
-          weekStart: "sdfsfd",
+          weekStart: "",
         });
       }
       return all;
