@@ -13,14 +13,14 @@ import {
 import { useUserId } from "../hooks/useUserId";
 import { useWeeklyRunsChartData } from "../hooks/useWeeklyRunsChartData";
 
-const WeeklyRunsChart = () => {
+const WeeklyRunsChart = ({ weekOffset }: { weekOffset: number }) => {
   const userId = useUserId();
   const {
     data: weeklyRuns,
     isLoading,
     isError,
     error,
-  } = useWeeklyRunsChartData(userId, 0);
+  } = useWeeklyRunsChartData(userId, weekOffset);
   if (isLoading) return <div>Loading…</div>;
   if (isError) return <div>Error: {String(error)}</div>;
   return (

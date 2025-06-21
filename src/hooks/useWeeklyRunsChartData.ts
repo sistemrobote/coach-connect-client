@@ -20,7 +20,7 @@ export function useWeeklyRunsChartData(
   const weekOffsets = getLastNWeekOffsets(weekOffset, weeksCount);
 
   return useQuery<WeeklyRunSummary[]>({
-    queryKey: ["weeklyRunsChart", userId, ...weekOffsets],
+    queryKey: ["weeklyRunsChart", userId, weekOffsets.join(",")],
     enabled: !!userId,
     queryFn: async () => {
       if (!userId) return [];

@@ -22,7 +22,7 @@ export const App = () => {
     "
       >
         <WeeklyCarousel weekOffset={weekOffset} setWeekOffset={setWeekOffset} />
-        <WeeklyRunsChart />
+        <WeeklyRunsChart weekOffset={weekOffset} />
         <ActivitiesList userId={userId} weekOffset={weekOffset} />
         <TrainingLog />
       </div>
