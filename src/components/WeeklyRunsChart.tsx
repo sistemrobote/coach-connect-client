@@ -20,7 +20,7 @@ const WeeklyRunsChart = React.memo(({ userId: userId }: { userId: string }) => {
     error,
   } = useSixWeeksRunsChartData(userId);
 
-  if (isLoading) return <div>Loading…</div>;
+  if (isLoading) return undefined;
   if (isError) return <div>Error: {String(error)}</div>;
 
   return (
