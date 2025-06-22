@@ -10,19 +10,19 @@ import {
   Legend,
   LabelList,
 } from "recharts";
-import { useUserId } from "../hooks/useUserId";
-import { useWeeklyRunsChartData } from "../hooks/useWeeklyRunsChartData";
+import { useSixWeeksRunsChartData } from "../hooks/useSixWeeksRunsChartData";
 
-const WeeklyRunsChart = ({ weekOffset }: { weekOffset: number }) => {
-  const userId = useUserId();
+const WeeklyRunsChart = React.memo(({ userId: userId }: { userId: string }) => {
   const {
     data: weeklyRuns,
     isLoading,
     isError,
     error,
-  } = useWeeklyRunsChartData(userId, weekOffset);
+  } = useSixWeeksRunsChartData(userId);
+
   if (isLoading) return <div>Loading…</div>;
   if (isError) return <div>Error: {String(error)}</div>;
+
   return (
     <div className=" mt-4 w-full rounded-2xl shadow-md p-4 mb-6">
       <h2 className="text-lg font-semibold mb-2 text-gray-700">
@@ -61,7 +61,7 @@ const WeeklyRunsChart = ({ weekOffset }: { weekOffset: number }) => {
             <LabelList
               dataKey="pace"
               position="top"
-              formatter={(value: number) => value.toFixed(1)} // Format as "12.3"
+              formatter={(value: number) => value.toFixed(2)} // Format as "12.33"
               style={{
                 fill: "var(--color-light-gray)",
                 fontWeight: "bold",
@@ -73,6 +73,6 @@ const WeeklyRunsChart = ({ weekOffset }: { weekOffset: number }) => {
       </ResponsiveContainer>
     </div>
   );
-};
+});
 
 export default WeeklyRunsChart;

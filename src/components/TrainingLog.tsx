@@ -1,9 +1,6 @@
 import { useAthleteStats } from "../hooks/useAthleteStats";
-import { useUserId } from "../hooks/useUserId";
 
-export const TrainingLog = () => {
-  const userId = useUserId();
-
+export const TrainingLog = ({ userId: userId }: { userId: string }) => {
   const { data: stats, isLoading, isError, error } = useAthleteStats(userId);
   if (isLoading) return <div>Loading stats…</div>;
   if (isError) return <div>Error loading stats: {String(error)}</div>;
