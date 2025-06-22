@@ -1,5 +1,6 @@
 const clientID = import.meta.env.VITE_STRAVA_CLIENT_ID;
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+console.log(" apiBaseUrl:", apiBaseUrl);
 
 export const Login = () => {
   const login = async () => {

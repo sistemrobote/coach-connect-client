@@ -12,10 +12,10 @@ import { ScaleLoader } from "react-spinners";
 export const App = () => {
   const [weekOffset, setWeekOffset] = useState(0);
   const userId = useUserId();
-  const { isLoading: isLoadingChart } = useWeeklyRunsChartData(
-    userId,
-    weekOffset,
-  );
+  // const { isLoading: isLoadingChart } = useWeeklyRunsChartData(
+  //   userId,
+  //   weekOffset,
+  // );
   const { isLoading: isLoadingActivities } = useActivities(userId, weekOffset);
 
   if (!userId) return <Login />;
@@ -29,7 +29,7 @@ export const App = () => {
       p-4
     "
       >
-        {isLoadingChart || isLoadingActivities ? (
+        {isLoadingActivities ? (
           <div className="flex justify-center">
             <ScaleLoader
               color="var(--color-primary)"
@@ -44,7 +44,7 @@ export const App = () => {
               weekOffset={weekOffset}
               setWeekOffset={setWeekOffset}
             />
-            <WeeklyRunsChart weekOffset={weekOffset} />
+            {/* <WeeklyRunsChart weekOffset={weekOffset} /> */}
             <ActivitiesList userId={userId} weekOffset={weekOffset} />
             <TrainingLog />
           </>
