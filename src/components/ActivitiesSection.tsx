@@ -7,12 +7,19 @@ import { SectionLoader } from "../components/SectionLoader";
 
 export const ActivitiesSection = ({ userId: userId }: { userId: string }) => {
   const [weekOffset, setWeekOffset] = useState(0);
-  const { isLoading: isLoadingActivities } = useActivities(userId, weekOffset);
+  const {
+    isLoading: isLoadingActivities,
+    isError,
+    error,
+  } = useActivities(userId, weekOffset);
 
   if (!userId) return <Login />;
 
   if (isLoadingActivities) {
     return <SectionLoader />;
+  }
+  if (isError) {
+    return <div>Error loading activities: {String(error)}</div>;
   }
 
   return (
