@@ -10,6 +10,7 @@ export function useActivities(userId: string | undefined, weekOffset: number) {
     },
     enabled: !!userId,
     // keepPreviousData: true,
-    staleTime: 1000 * 60 * 1,
+    staleTime: 1000 * 60,
+    retry: 1,
   });
 }

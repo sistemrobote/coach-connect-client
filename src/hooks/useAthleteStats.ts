@@ -10,5 +10,6 @@ export function useAthleteStats(athleteId: string | undefined) {
     },
     enabled: !!athleteId,
     staleTime: 1000 * 60 * 1,
+    retry: 1,
   });
 }

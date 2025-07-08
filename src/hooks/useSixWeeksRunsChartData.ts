@@ -59,5 +59,6 @@ export function useSixWeeksRunsChartData(userId: string | undefined) {
       return weekSummaries;
     },
     staleTime: 1000 * 60 * 1,
+    retry: 1,
   });
 }
