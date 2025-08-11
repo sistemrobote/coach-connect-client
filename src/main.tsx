@@ -4,6 +4,7 @@ import { App } from "./App.js";
 import "./index.css";
 import { registerSW } from "virtual:pwa-register";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 registerSW();
 
@@ -13,9 +14,11 @@ const queryClient = new QueryClient();
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
+      <ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </ErrorBoundary>
     </React.StrictMode>,
   );
 } else {

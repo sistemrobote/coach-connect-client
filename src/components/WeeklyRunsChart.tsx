@@ -11,6 +11,7 @@ import {
   LabelList,
 } from "recharts";
 import { useSixWeeksRunsChartData } from "../hooks/useSixWeeksRunsChartData";
+import { formatPace } from "../utils/formatPace";
 
 const WeeklyRunsChart = React.memo(({ userId: userId }: { userId: string }) => {
   const {
@@ -61,7 +62,7 @@ const WeeklyRunsChart = React.memo(({ userId: userId }: { userId: string }) => {
             <LabelList
               dataKey="pace"
               position="top"
-              formatter={(value: number) => value.toFixed(2)} // Format as "12.33"
+              formatter={(value: number) => formatPace(value)}
               style={{
                 fill: "var(--color-light-gray)",
                 fontWeight: "bold",
