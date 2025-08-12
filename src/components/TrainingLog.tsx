@@ -10,7 +10,7 @@ export const TrainingLog = ({ userId: userId }: { userId: string }) => {
     maximumFractionDigits: 1,
   });
   return (
-    <div className="mt-4 flex justify-between rounded-2xl shadow-md p-4 w-full mx-auto">
+    <div className="mt-4 flex justify-between rounded-2xl shadow-md p-4 w-full">
       <div className="flex flex-col items-start">
         <span className="text-3xl font-bold text-orange-500">{count}</span>
         <span className="text-gray-500 text-sm">Total Runs</span>

@@ -1,39 +1,67 @@
 import { Login } from "./components/Login";
 import { useUserId } from "./hooks/useUserId";
 import { TrainingLog } from "./components/TrainingLog";
-import WeeklyRunsChart from "./components/WeeklyRunsChart";
-import { ActivitiesSection } from "./components/ActivitiesSection";
-import { Modal } from "./components/Modal";
-import { useState } from "react";
+import { ActivityCard } from "./components/ActivityCard";
+import { useRunningHeatmapData } from "./hooks/useRunningHeatmapData";
+import { useManualActivity } from "./hooks/useManualActivity";
 
 export const App = () => {
   const userId = useUserId();
-  const [showModal, setSetShowModal] = useState(false);
-  const openModal = () => setSetShowModal(true);
-  const setCloseModal = () => setSetShowModal(false);
+  const { data: runningData = [] } = useRunningHeatmapData(userId);
+
+  const pushUps = useManualActivity("pushups");
+  const pullUps = useManualActivity("pullups");
 
   if (!userId) return <Login />;
 
   return (
-    <div className="flex items-center justify-center py-2">
-      <div
-        className="
-      w-full 
-      md:w-2/3 
-      p-4
-    "
-      >
-        <WeeklyRunsChart userId={userId} />
-        <ActivitiesSection userId={userId} />
+    <div className="flex justify-center py-2">
+      <div className="w-full max-w-[640px] p-4">
+        <ActivityCard
+          title="Running"
+          data={runningData}
+          colorScheme="orange"
+          icon={
+            <svg
+              className="w-5 h-5 text-gray-600"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z" />
+            </svg>
+          }
+        />
+        <ActivityCard
+          title="Push-ups"
+          data={pushUps.data}
+          colorScheme="blue"
+          icon={
+            <svg
+              className="w-5 h-5 text-gray-600"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM8 17.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM16 17.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+            </svg>
+          }
+        />
+
+        <ActivityCard
+          title="Pull-ups"
+          data={pullUps.data}
+          colorScheme="red"
+          icon={
+            <svg
+              className="w-5 h-5 text-gray-600"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" />
+            </svg>
+          }
+        />
+
         <TrainingLog userId={userId} />
-        <button
-          className="absolute top-6 right-6 w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center shadow hover:bg-orange-600 transition"
-          title="Add push-ups & pull-ups"
-          onClick={openModal}
-        >
-          <span className="text-white text-2xl font-bold pb-0.5">+</span>
-        </button>
-        {showModal && <Modal closeModal={setCloseModal} />}
       </div>
     </div>
   );
