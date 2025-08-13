@@ -8,8 +8,10 @@ export interface ActivityTotals {
 }
 
 export interface StravaStats {
-  biggest_ride_distance: number;
-  biggest_climb_elevation_gain: number;
-  recent_run_totals: ActivityTotals;
-  all_run_totals: ActivityTotals;
+  stats: {
+    biggest_ride_distance: number;
+    biggest_climb_elevation_gain: number;
+    recent_run_totals: ActivityTotals;
+    all_run_totals: ActivityTotals;
+  };
 }

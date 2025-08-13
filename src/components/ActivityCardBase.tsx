@@ -1,14 +1,15 @@
 import React from "react";
-import { ActivityHeatmap, ActivityData } from "./ActivityHeatmap";
+import { ActivityHeatmap } from "./ActivityHeatmap";
+import { Activity } from "../types/activity";
 
-interface ActivityCardProps {
+interface ActivityCardBaseProps {
   title: string;
-  data: ActivityData[];
+  data: Activity[];
   colorScheme?: "blue" | "red" | "orange";
   icon: React.ReactNode;
 }
 
-export const ActivityCard: React.FC<ActivityCardProps> = ({
+export const ActivityCardBase: React.FC<ActivityCardBaseProps> = ({
   title,
   data,
   colorScheme = "orange",
@@ -42,7 +43,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
 
   return (
     <div
-      className={`${getCardBackgroundColor()} rounded-2xl p-4 mb-4 border border-gray-100 `}
+      className={`${getCardBackgroundColor()} rounded-2xl p-4 mb-4 border border-gray-100 w-full max-w-[610px]`}
     >
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-3">
@@ -53,7 +54,14 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
         </div>
       </div>
 
-      <ActivityHeatmap data={data} colorScheme={colorScheme} />
+      <div
+        className="overflow-x-auto scrollbar-hide"
+        style={{ direction: "rtl" }}
+      >
+        <div className="min-w-max" style={{ direction: "ltr" }}>
+          <ActivityHeatmap data={data} colorScheme={colorScheme} />
+        </div>
+      </div>
     </div>
   );
 };

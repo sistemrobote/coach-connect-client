@@ -1,25 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { ActivityData } from "../components/ActivityHeatmap";
+import apiClient from "../api/client";
+import { Activity, ActivitiesData } from "../types";
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-
-type Activity = {
-  id: number;
-  name: string;
-  start_date_local: string;
-  distance: number;
-  average_speed: number;
-  moving_time: number;
-};
-
-export function useRunningHeatmapData(userId: string | undefined) {
-  return useQuery<ActivityData[]>({
-    queryKey: ["runningHeatmap", userId],
+export function useRunningHeatmapData() {
+  return useQuery<Activity[]>({
+    queryKey: ["runningHeatmap", "activity"],
     queryFn: async () => {
-      if (!userId) return [];
-
-      // Get 48 weeks of data
       const today = new Date();
       const after = Math.floor(
         new Date(today.getTime() - 48 * 7 * 24 * 60 * 60 * 1000).getTime() /
@@ -27,8 +13,8 @@ export function useRunningHeatmapData(userId: string | undefined) {
       );
       const before = Math.floor(today.getTime() / 1000);
 
-      const res = await axios.get<Activity[]>(`${apiBaseUrl}/activities`, {
-        params: { user_id: userId, after, before },
+      const res = await apiClient.get<ActivitiesData>("/activities", {
+        params: { after, before },
       });
 
       // Group activities by date with pace calculation
@@ -37,7 +23,7 @@ export function useRunningHeatmapData(userId: string | undefined) {
         { count: number; totalPace: number }
       >();
 
-      res.data.forEach((activity) => {
+      res.data.activities.forEach((activity) => {
         const date = new Date(activity.start_date_local);
         const dateKey = date.toDateString();
 
@@ -57,8 +43,7 @@ export function useRunningHeatmapData(userId: string | undefined) {
         });
       });
 
-      // Convert to ActivityData format
-      const result: ActivityData[] = [];
+      const result: Activity[] = [];
       activityByDate.forEach(({ count, totalPace }, dateStr) => {
         result.push({
           date: new Date(dateStr),
@@ -66,11 +51,9 @@ export function useRunningHeatmapData(userId: string | undefined) {
           averagePace: count > 0 ? totalPace / count : undefined,
         });
       });
-      console.log("🚀 ~ result>>", result);
 
       return result;
     },
-    enabled: !!userId,
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: 1,
   });

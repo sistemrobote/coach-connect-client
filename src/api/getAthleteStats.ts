@@ -1,10 +1,8 @@
 import apiClient from "./client";
 import { StravaStats } from "../types/stats";
 
-export async function getAthleteStats(userId: string): Promise<StravaStats> {
-  const response = await apiClient.get<StravaStats>("/athletes/stats", {
-    params: { user_id: userId },
-  });
+export async function getAthleteStats(): Promise<StravaStats> {
+  const response = await apiClient.get<StravaStats>("/athletes/stats");
   return response.data;
 }
 

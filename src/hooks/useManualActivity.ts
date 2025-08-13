@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { ActivityData } from "../components/ActivityHeatmap";
+import { ActivitiesData } from "../components/ActivityHeatmap";
 
 export function useManualActivity(activityType: string) {
-  const [data, setData] = useState<ActivityData[]>([]);
+  const [data, setData] = useState<ActivitiesData[]>([]);
 
   // Load data from localStorage on mount
   useEffect(() => {

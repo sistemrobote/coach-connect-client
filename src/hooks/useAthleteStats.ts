@@ -3,14 +3,13 @@ import { getAthleteStats } from "../api/getAthleteStats";
 
 import { StravaStats } from "../types/stats";
 
-export function useAthleteStats(athleteId: string | undefined) {
+export function useAthleteStats() {
   return useQuery<StravaStats>({
-    queryKey: ["athleteStats", athleteId],
+    queryKey: ["athleteStats"],
     queryFn: () => {
-      if (!athleteId) return Promise.reject("No athlete or token");
-      return getAthleteStats(athleteId);
+      return getAthleteStats();
     },
-    enabled: !!athleteId,
+    enabled: true,
     staleTime: 1000 * 60 * 1,
     retry: 1,
   });

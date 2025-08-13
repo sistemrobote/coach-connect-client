@@ -1,13 +1,8 @@
 import React from "react";
-
-export interface ActivityData {
-  date: Date;
-  count: number;
-  averagePace?: number; // in minutes per mile
-}
+import { Activity } from "../types";
 
 interface ActivityHeatmapProps {
-  data: ActivityData[];
+  data: Activity[];
   colorScheme?: "blue" | "red" | "orange";
 }
 
@@ -106,8 +101,8 @@ export const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({
   const grid = generateGrid();
 
   return (
-    <div className="w-full p-[1px] overflow-hidden flex justify-end">
-      <div className="flex gap-0.5 min-w-max">
+    <div className="flex justify-end">
+      <div className="flex gap-0.5">
         {grid.map((week, weekIndex) => (
           <div key={weekIndex} className="flex flex-col gap-0.5 flex-shrink-0">
             {week.map((day, dayIndex) => (

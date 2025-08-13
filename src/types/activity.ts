@@ -1,4 +1,9 @@
 export interface Activity {
+  date: Date;
+  count: number;
+  averagePace?: number;
+}
+export interface ActivityData {
   id: number;
   name: string;
   start_date_local: string;
@@ -6,7 +11,11 @@ export interface Activity {
   average_speed: string;
   moving_time: number;
 }
-
+export interface ActivitiesData {
+  activities: ActivityData[];
+  count: number;
+  sucees: boolean;
+}
 export interface ActivityFilters {
   userId: string;
   weekOffset?: number;
