@@ -1,25 +1,34 @@
-import axios from "axios";
+import apiClient from "./client";
 import { getUnixTimestampsForWeek } from "../utils/getUnixTimestampsForWeek";
-// import { getSixWeeksUnixTimestamps } from "../utils/getSixWeeksUnixTimestamps";
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-
-export type Activity = {
-  id: number;
-  name: string;
-  start_date_local: string;
-  distance: number;
-  average_speed: string;
-  moving_time: number;
-};
+import { Activity, ActivityFilters } from "../types/activity";
 
 export async function fetchActivities(
   userId: string,
-  weekOffset?: number,
+  weekOffset = 0,
 ): Promise<Activity[]> {
   const { after, before } = getUnixTimestampsForWeek(weekOffset);
 
-  const res = await axios.get<Activity[]>(`${apiBaseUrl}/activities`, {
+  const response = await apiClient.get<Activity[]>("/activities", {
     params: { user_id: userId, after, before },
   });
-  return res.data;
+  return response.data;
+}
+
+export async function fetchActivitiesWithFilters(
+  filters: ActivityFilters,
+): Promise<Activity[]> {
+  const { userId, weekOffset = 0, after, before } = filters;
+
+  const timestamps =
+    after && before ? { after, before } : getUnixTimestampsForWeek(weekOffset);
+
+  const response = await apiClient.get<Activity[]>("/activities", {
+    params: { user_id: userId, ...timestamps },
+  });
+  return response.data;
+}
+
+export async function fetchActivityById(activityId: number): Promise<Activity> {
+  const response = await apiClient.get<Activity>(`/activities/${activityId}`);
+  return response.data;
 }

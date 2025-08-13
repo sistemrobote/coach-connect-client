@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchActivities, Activity } from "../api/activities";
+import { fetchActivities } from "../api/activities";
+import type { Activity } from "../types/activity";
 
 export function useActivities(userId: string | undefined, weekOffset: number) {
   return useQuery<Activity[]>({

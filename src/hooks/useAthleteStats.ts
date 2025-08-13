@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAthleteStats, StravaStats } from "../api/getAthleteStats";
+import { getAthleteStats } from "../api/getAthleteStats";
+
+import { StravaStats } from "../types/stats";
 
 export function useAthleteStats(athleteId: string | undefined) {
   return useQuery<StravaStats>({

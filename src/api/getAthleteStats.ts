@@ -1,30 +1,14 @@
-import axios from "axios";
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-
-export type StravaStats = {
-  biggest_ride_distance: number;
-  biggest_climb_elevation_gain: number;
-  recent_run_totals: {
-    count: number;
-    distance: number;
-    moving_time: number;
-    elapsed_time: number;
-    elevation_gain: number;
-    achievement_count: number;
-  };
-  all_run_totals: {
-    count: number;
-    distance: number;
-    moving_time: number;
-    elapsed_time: number;
-    elevation_gain: number;
-    achievement_count: number;
-  };
-};
+import apiClient from "./client";
+import { StravaStats } from "../types/stats";
 
 export async function getAthleteStats(userId: string): Promise<StravaStats> {
-  const res = await axios.get<StravaStats>(`${apiBaseUrl}/athletes/stats`, {
+  const response = await apiClient.get<StravaStats>("/athletes/stats", {
     params: { user_id: userId },
   });
-  return res.data;
+  return response.data;
+}
+
+export async function getAthleteProfile(userId: string): Promise<unknown> {
+  const response = await apiClient.get(`/athletes/${userId}`);
+  return response.data;
 }
