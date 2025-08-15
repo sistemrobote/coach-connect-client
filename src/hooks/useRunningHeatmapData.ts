@@ -45,10 +45,28 @@ export function useRunningHeatmapData() {
 
       const result: Activity[] = [];
       activityByDate.forEach(({ count, totalPace }, dateStr) => {
+        const averagePace = count > 0 ? totalPace / count : undefined;
+
+        // Calculate intensity level based on pace (minutes per mile)
+        let level = 0;
+        if (count > 0 && averagePace) {
+          if (averagePace < 7)
+            level = 4; // less than 7 min/mi
+          else if (averagePace < 8)
+            level = 3; // 7-8 min/mi
+          else if (averagePace < 9)
+            level = 2; // 8-9 min/mi
+          else level = 1; // 9+ min/mi
+        } else if (count > 0) {
+          // Fallback to count-based if no pace data
+          level = 1;
+        }
+
         result.push({
           date: new Date(dateStr),
           count,
-          averagePace: count > 0 ? totalPace / count : undefined,
+          level,
+          averagePace,
         });
       });
 

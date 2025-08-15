@@ -40,22 +40,8 @@ export const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({
         );
 
         const count = dayData?.count || 0;
+        const level = dayData?.level || 0;
         const pace = dayData?.averagePace;
-        let level = 0;
-
-        // Calculate intensity level based on pace (minutes per mile)
-        if (count > 0 && pace) {
-          if (pace < 7)
-            level = 4; // 600 color - less than 7 min/mi
-          else if (pace < 8)
-            level = 3; // 500 color - 7-8 min/mi
-          else if (pace < 9)
-            level = 2; // 300 color - 8-9 min/mi
-          else level = 1; // 200 color - 9+ min/mi
-        } else if (count > 0) {
-          // Fallback to count-based if no pace data
-          level = 1;
-        }
 
         weekData.push({
           date: currentDate,

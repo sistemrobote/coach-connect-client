@@ -1,6 +1,7 @@
 export interface Activity {
   date: Date;
   count: number;
+  level: number;
   averagePace?: number;
 }
 export interface ActivityData {

@@ -32,10 +32,10 @@ export function useAuth() {
   const logout = async () => {
     try {
       await apiLogout();
-      queryClient.clear(); // Clear all queries on logout
+      queryClient.clear();
     } catch (error) {
       console.error("Logout failed:", error);
-      queryClient.clear(); // Still clear cache even if logout fails
+      queryClient.clear();
     }
   };
   // const login = (authData: AuthResponse) => {

@@ -1,20 +1,10 @@
 import React from "react";
-import { useAuthContext } from "../hooks/useAuthContext";
 import { RunningActivityCard } from "./RunningActivityCard";
 import { ManualActivityCard } from "./ManualActivityCard";
 import { TrainingLog } from "./TrainingLog";
 
 function Dashboard() {
-  const { user, isAuthenticated, isLoading } = useAuthContext();
-  console.log("🚀 ~ Dashboard - userss>>", user);
-
-  if (isLoading) {
-    return <div>Loading Dashboard...</div>;
-  }
-
-  if (!isAuthenticated) {
-    return <div>Not authenticated</div>;
-  }
+  // const { user, isAuthenticated, isLoading } = useAuthContext();
 
   return (
     <div className="flex flex-col p-6 w-full max-w-5xl mx-auto items-center">
