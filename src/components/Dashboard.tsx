@@ -11,7 +11,6 @@ function Dashboard() {
       <RunningActivityCard />
 
       <ManualActivityCard
-        activityType="pushups"
         title="Push-ups"
         colorScheme="blue"
         icon={
@@ -24,7 +23,6 @@ function Dashboard() {
       />
 
       <ManualActivityCard
-        activityType="pullups"
         title="Pull-ups"
         colorScheme="red"
         icon={

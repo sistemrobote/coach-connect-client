@@ -1,5 +1,6 @@
 import React from "react";
 import { Activity } from "../types";
+import { getLevelColor } from "../getColors";
 
 interface ActivityHeatmapProps {
   data: Activity[];
@@ -56,45 +57,17 @@ export const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({
     return grid;
   };
 
-  const getLevelColor = (level: number): string => {
-    const schemes = {
-      blue: [
-        "bg-blue-100/30",
-        "bg-blue-200",
-        "bg-blue-300",
-        "bg-blue-500",
-        "bg-blue-600",
-      ],
-      red: [
-        "bg-red-100/30",
-        "bg-red-200",
-        "bg-red-300",
-        "bg-red-500",
-        "bg-red-600",
-      ],
-      orange: [
-        "bg-orange-100/30",
-        "bg-orange-200",
-        "bg-orange-300",
-        "bg-orange-500",
-        "bg-orange-600",
-      ],
-    };
-
-    return schemes[colorScheme][level];
-  };
-
   const grid = generateGrid();
 
   return (
     <div className="flex justify-end">
-      <div className="flex gap-0.5">
+      <div className="flex gap-0.5 p-[1px]">
         {grid.map((week, weekIndex) => (
           <div key={weekIndex} className="flex flex-col gap-0.5 flex-shrink-0">
             {week.map((day, dayIndex) => (
               <div
                 key={dayIndex}
-                className={`w-2.5 h-2.5 rounded-[3px] ${getLevelColor(day.level)} hover:ring-1 hover:ring-gray-400 cursor-pointer`}
+                className={`w-2.5 h-2.5 rounded-[3px] ${getLevelColor(day.level, colorScheme)} hover:ring-1 hover:ring-gray-400 cursor-pointer`}
                 title={`${day.count} activities on ${day.date.toLocaleDateString()}${
                   day.averagePace
                     ? ` - Avg pace: ${day.averagePace.toFixed(1)} min/mi`

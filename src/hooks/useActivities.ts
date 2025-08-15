@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchActivities } from "../api/activities";
 import type { Activity } from "../types/activity";
 
+// Get activities from Strava
 export function useActivities(userId: string | undefined, weekOffset: number) {
   return useQuery<Activity[]>({
     queryKey: ["activities", userId, weekOffset],
