@@ -53,6 +53,9 @@ export async function createManualActivity(
   const response = await apiClient.post<CreateWorkoutResponse>(
     "/user/workouts",
     activityData,
+    {
+      withCredentials: false,
+    },
   );
   return response.data;
 }
